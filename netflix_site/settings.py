@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import dj_database_url
 
 from pathlib import Path
 
@@ -81,16 +82,39 @@ WSGI_APPLICATION = "netflix_site.wsgi.application"
 #     }
 # }
 
+# this is the Database Connection using Aiven.io
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "defaultdb",
+#         "USER": "avnadmin",
+#         "PASSWORD": "AVNS_cmtBhR9ljAKoQnRhFwI",
+#         "HOST": "pg-1b55c41d-solviatwork-1475.c.aivencloud.com",
+#         "PORT": "15803",
+#     }
+# }
+
+# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "netflix_django_rupesh",
-        "USER": "netflix_django_rupesh_user",
-        "PASSWORD": "SZWb8CyfJOWaRIB5IdKoDoE8CyjICmBv",
-        "HOST": "postgres://netflix_django_rupesh_user:SZWb8CyfJOWaRIB5IdKoDoE8CyjICmBv@dpg-cojm7ge3e1ms73bdaelg-a/netflix_django_rupesh",
-        "PORT": "5432",
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgres://netflix_db_rupesh_user:9fUUyIPxjNatYkFwSmKOSxvpPu5If5NC@dpg-coq96otjm4es73ahmqbg-a.singapore-postgres.render.com/netflix_db_rupesh',
+        conn_max_age=600
+    )
 }
+
+# Database Credentials that I have created on Render.com
+# # DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "netflix_db_rupesh",
+#         "USER": "netflix_db_rupesh_user",
+#         "PASSWORD": "9fUUyIPxjNatYkFwSmKOSxvpPu5If5NC",
+#         "HOST": "dpg-coq96otjm4es73ahmqbg-a",
+#         "PORT": "5432",
+#     }
+# }
 
 
 # Password validation
@@ -128,7 +152,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles" # here by running collectstatic I will collect all static file of Project in one place
+STATIC_ROOT = BASE_DIR / "staticfiles" # here by running collectstatic I will collect all static file of Project in one place This is basically used while going to production
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
