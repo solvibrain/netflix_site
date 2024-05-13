@@ -96,25 +96,25 @@ WSGI_APPLICATION = "netflix_site.wsgi.application"
 # }
 
 # Replace the SQLite DATABASES configuration with PostgreSQL:
-DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgres://netflix_db_rupesh_user:9fUUyIPxjNatYkFwSmKOSxvpPu5If5NC@dpg-coq96otjm4es73ahmqbg-a.singapore-postgres.render.com/netflix_db_rupesh',
-        conn_max_age=600
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='postgres://netflix_db_rupesh_user:9fUUyIPxjNatYkFwSmKOSxvpPu5If5NC@dpg-coq96otjm4es73ahmqbg-a.singapore-postgres.render.com/netflix_db_rupesh',
+#         conn_max_age=600
+#     )
+# }
 
 # Database Credentials that I have created on Render.com
-# # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "netflix_db_rupesh",
-#         "USER": "netflix_db_rupesh_user",
-#         "PASSWORD": "9fUUyIPxjNatYkFwSmKOSxvpPu5If5NC",
-#         "HOST": "dpg-coq96otjm4es73ahmqbg-a",
-#         "PORT": "5432",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "netflix_db_rupesh",
+        "USER": "netflix_db_rupesh_user",
+        "PASSWORD": "9fUUyIPxjNatYkFwSmKOSxvpPu5If5NC",
+        "HOST": "dpg-coq96otjm4es73ahmqbg-a.singapore-postgres.render.com",
+        "PORT": "5432",
+    }
+}
 
 
 # Password validation
@@ -161,3 +161,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTHENTICATION_BACKENDS = (
+    'core.backends.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+# setting up path for Storing all media file that is being getting use in this project.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
